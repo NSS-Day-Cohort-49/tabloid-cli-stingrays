@@ -1,4 +1,5 @@
 ﻿using TabloidCLI.UserInterfaceManagers;
+using System;
 
 namespace TabloidCLI
 {
@@ -7,6 +8,9 @@ namespace TabloidCLI
         static void Main(string[] args)
         {
             // MainMenuManager implements the IUserInterfaceManager interface
+            Console.Clear();
+            Console.WriteLine("HELLO. THIS IS A PLEASENT GREETING");
+            Console.WriteLine();
             IUserInterfaceManager ui = new MainMenuManager();
             while (ui != null)
             {
