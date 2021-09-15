@@ -60,6 +60,38 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        private Tag Choose(string prompt = null)
+        {
+            if (prompt == null)
+            {
+                prompt = "Please choose a Tag";
+            }
+
+            Console.WriteLine(prompt);
+
+            List<Tag> tags = _tagRepository.GetAll();
+
+            for (int i = 0; i < tags.Count; i++)
+            {
+                Tag t = tags[i];
+                Console.WriteLine($" {i + 1} ) {t.Name}");
+            }
+            Console.Write(">  ");
+            int chosenOne = int.Parse(Console.ReadLine());
+
+            try
+            {
+                return tags[chosenOne -1];
+            }
+            catch
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
+            }
+
+          
+        }
+
         private void Add()
         {
             Console.WriteLine("Please enter the name for your tag");
@@ -79,12 +111,24 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Edit()
         {
-            throw new NotImplementedException();
+            Tag chosenOne = Choose("Which tag would you like to choose?");
+
+            Console.WriteLine("New Name (Leave blank to keep the same) : ");
+            //string name = Console.ReadLine();
+            //if (!string.IsNullOrWhiteSpace(name)
+            //    {
+                
+            //}
+
         }
 
         private void Remove()
         {
-            throw new NotImplementedException();
+            List();
+            Console.WriteLine("Please choose the Tag you would like to delete.");
+            int chosenOne = (int.Parse(Console.ReadLine()) -1);
+
+            _tagRepository.Delete(chosenOne);
         }
     }
 }
