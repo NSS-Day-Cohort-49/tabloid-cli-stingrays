@@ -19,7 +19,7 @@ namespace TabloidCLI
                 {
                     cmd.CommandText = @"SELECT id,
                                                Title,
-                                               CreationDate
+                                               CreateDateTime
                                           FROM Journal";
 
                     List<Journal> entries = new List<Journal>();
@@ -27,11 +27,18 @@ namespace TabloidCLI
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
+                        //int idColumnPosition = reader.GetOrdinal("Id");
+                        //int idValue = reader.GetInt32(idColumnPosition);
+                        //int titleColumnPosition = reader.GetOrdinal("Title");
+                        //string titleValue = reader.GetString(titleColumnPosition);
+                        //int dateColumnPosition = reader.GetOrdinal("CreateDateTime");
+                        //DateTime dateValue = reader.GetDateTime(dateColumnPosition);
+
                         Journal entry = new Journal()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
-                            CreationDate = reader.GetDateTime(reader.GetOrdinal("CreationDate")),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                         };
                         entries.Add(entry);
                     }
@@ -50,12 +57,12 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Journal (Title, TextContent, CreationDate)
+                    cmd.CommandText = @"INSERT INTO Journal (Title, Content, CreateDateTime)
                                         OUTPUT INSERTED.Id
-                                        VALUES (@title, @textContent, @creationDate)";
+                                        VALUES (@title, @Content, @createDateTime)";
                     cmd.Parameters.AddWithValue("@title", journal.Title);
-                    cmd.Parameters.AddWithValue("@textContent", journal.TextContent);
-                    cmd.Parameters.AddWithValue("@creationDate", journal.CreationDate);
+                    cmd.Parameters.AddWithValue("@Content", journal.Content);
+                    cmd.Parameters.AddWithValue("@createDateTime", journal.CreateDateTime);
 
                     int id = (int)cmd.ExecuteScalar();
 

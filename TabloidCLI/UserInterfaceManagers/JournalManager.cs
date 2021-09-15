@@ -60,9 +60,9 @@ namespace TabloidCLI.UserInterfaceManagers
             entry.Title = Console.ReadLine();
 
             Console.Write("Your thoughts: ");
-            entry.TextContent = Console.ReadLine();
+            entry.Content = Console.ReadLine();
 
-            entry.CreationDate = DateTime.Now;
+            entry.CreateDateTime = DateTime.Now;
 
             _journalRepository.Insert(entry);
         }
