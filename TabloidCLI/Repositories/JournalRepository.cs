@@ -19,6 +19,7 @@ namespace TabloidCLI
                 {
                     cmd.CommandText = @"SELECT id,
                                                Title,
+                                               Content,
                                                CreateDateTime
                                           FROM Journal";
 
@@ -32,6 +33,7 @@ namespace TabloidCLI
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            Content = reader.GetString(reader.GetOrdinal("Content"))
                         };
                         entries.Add(entry);
                     }
@@ -60,6 +62,40 @@ namespace TabloidCLI
                     int id = (int)cmd.ExecuteScalar();
 
                     journal.Id = id;
+                }
+            }
+        }
+
+
+        public void Remove(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Journal WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        public void Edit(Journal journal)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Journal SET Title = @title, Content = @content WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@title", journal.Title);
+                    cmd.Parameters.AddWithValue("@content", journal.Content);
+                    cmd.Parameters.AddWithValue("@id", journal.Id);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
