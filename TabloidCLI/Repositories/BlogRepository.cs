@@ -54,8 +54,8 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT b.Id, b.Title, b.Url FROM Blog b LEFT JOIN BlogTag bt ON b.Id = bt.BlogId LEFT JOIN Tag t on t.Id = bt.TagId ";
-
+                    //cmd.CommandText = @"SELECT b.Id, b.Title, b.Url FROM Blog b LEFT JOIN BlogTag bt ON b.Id = bt.BlogId LEFT JOIN Tag t on t.Id = bt.TagId ";
+                    cmd.CommandText = @"SELECT b.Id AS BlogId, b.Title, b.Url, t.Id AS TagId, t.Name FROM Blog b LEFT JOIN BlogTag bt ON b.Id = bt.BlogId LEFT JOIN Tag t on t.Id = bt.TagId WHERE b.id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     Blog blog = null;
@@ -67,17 +67,17 @@ namespace TabloidCLI
                         {
                             blog = new Blog()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Id = reader.GetInt32(reader.GetOrdinal("BlogId")),
                                 Title = reader.GetString(reader.GetOrdinal("Title")),
                                 Url = reader.GetString(reader.GetOrdinal("Url"))
 
                             };
                         }
-                        if (reader.IsDBNull(reader.GetOrdinal("TagId")))
+                        if (!reader.IsDBNull(reader.GetOrdinal("TagId")))
                         {
                             blog.Tags.Add(new Tag()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Id = reader.GetInt32(reader.GetOrdinal("TagId")),
                                 Name = reader.GetString(reader.GetOrdinal("Name")),
                             });
                         }
@@ -142,17 +142,16 @@ namespace TabloidCLI
 
         }
 
-        public void InsertTag(int blogId, int tagId)
+        public void InsertTag(Blog blog, Tag tag)
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO BlogTag (BlogId , TagId) VALUES (@blogId, tagId)";
-                    cmd.Parameters.AddWithValue("@blogId", blogId);
-                    cmd.Parameters.AddWithValue("@tagId", tagId);
-
+                    cmd.CommandText = @"INSERT INTO BlogTag (BlogId, TagId) VALUES (@blogId, @tagId)";
+                    cmd.Parameters.AddWithValue("@blogId", blog.Id);
+                    cmd.Parameters.AddWithValue("@tagId", tag.Id);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -165,10 +164,10 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM BlogTAg 
+                    cmd.CommandText = @"DELETE FROM BlogTag 
                                          WHERE BlogId = @blogid AND 
                                                TagId = @tagId";
-                    cmd.Parameters.AddWithValue("@authorId", blogId);
+                    cmd.Parameters.AddWithValue("@blogId", blogId);
                     cmd.Parameters.AddWithValue("@tagId", tagId);
 
                     cmd.ExecuteNonQuery();
