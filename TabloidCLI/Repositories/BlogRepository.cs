@@ -18,9 +18,10 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "@SELECT b.Id, b.Title, b.Url, b.Tags FROM Blog b Left JOIN BlogTag bt ON b.Id = bt.BlogId JOIN Tag t ON bt.TagId = t.Id";
-
+                    //cmd.CommandText = @"SELECT b.Id, b.Title, b.Url, t.Name FROM Blog b Left JOIN BlogTag bt ON b.Id = bt.BlogId JOIN Tag t ON bt.TagId = t.Id";
+                    cmd.CommandText = @" SELECT b.Id, b.Title, b.Url, t.Name FROM Blog b LEFT JOIN BlogTag bt ON b.Id = bt.BlogId LEFT JOIN Tag t ON bt.TagId = t.Id";
                     List<Blog> blogs = new List<Blog>();
+
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -31,12 +32,12 @@ namespace TabloidCLI
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("Url")),
-                           
+
 
                         };
 
                         blogs.Add(blog);
-                        
+
                     }
                     reader.Close();
 
@@ -46,7 +47,7 @@ namespace TabloidCLI
             }
         }
 
-        public Blog Get( int id)
+        public Blog Get(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -107,15 +108,16 @@ namespace TabloidCLI
         }
 
         public void Update(Blog blog)
-        { 
+        {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "@ UPDATE Blog SET Title = @title, Url = @url WHERE Id = @id";
+                    cmd.CommandText = @" UPDATE Blog SET Title = @title, Url = @url WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@title", blog.Title);
                     cmd.Parameters.AddWithValue("@url", blog.Url);
+                    cmd.Parameters.AddWithValue("@id", blog.Id);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -126,7 +128,7 @@ namespace TabloidCLI
         public void Delete(int Id)
         {
 
-            using( SqlConnection conn = Connection)
+            using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
@@ -140,7 +142,7 @@ namespace TabloidCLI
 
         }
 
-        public void InsertTag (int blogId, int tagId)
+        public void InsertTag(int blogId, int tagId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -156,5 +158,23 @@ namespace TabloidCLI
             }
         }
 
+        public void DeleteTag(int blogId, int tagId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM BlogTAg 
+                                         WHERE BlogId = @blogid AND 
+                                               TagId = @tagId";
+                    cmd.Parameters.AddWithValue("@authorId", blogId);
+                    cmd.Parameters.AddWithValue("@tagId", tagId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+        }
     }
 }
