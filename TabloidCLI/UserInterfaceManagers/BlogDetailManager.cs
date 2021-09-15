@@ -83,17 +83,17 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("> ");
 
             string input = Console.ReadLine();
-            //try
-            //{
+            try
+            {
                 int choice = int.Parse(input);
                 Tag tag = tags[choice - 1];
                 _blogRepository.InsertTag(blog, tag);
-        //}
-        //    catch
-        //    {
-        //        Console.WriteLine("Invalid Selection. Won't add any tags.");
-        //    }
         }
+            catch
+            {
+                Console.WriteLine("Invalid Selection. Won't add any tags.");
+            }
+}
 
         private void RemoveTag()
         {
