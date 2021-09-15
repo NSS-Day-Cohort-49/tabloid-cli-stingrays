@@ -12,16 +12,14 @@ namespace TabloidCLI.UserInterfaceManagers
         private BlogRepository _blogRepository;
         private PostRepository _postRepository;
         private TagRepository _tagRepository;
-        private int _authorId;
         private int _blogId;
 
-        public BlogDetailManager(IUserInterfaceManager parentUI, string connectionString, int blogId, int authorId)
+        public BlogDetailManager(IUserInterfaceManager parentUI, string connectionString, int blogId)
         {
             _parentUI = parentUI;
             _blogRepository = new BlogRepository(connectionString);
             _postRepository = new PostRepository(connectionString);
             _tagRepository = new TagRepository(connectionString);
-            _authorId = authorId;
             _blogId = blogId;
         }
 
@@ -43,7 +41,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     View();
                     return this;
                 case "2":
-                    ViewBlogPosts();
+                    //ViewBlogPost();
                     return this;
                 case "3":
                     AddTag();
@@ -72,15 +70,15 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine();
         }
 
-        private void ViewBlogPost()
-        {
-            List<Post> posts = _postRepository.GetByAuthor(_authorId);
-            foreach (Post post in posts)
-            {
-                Console.WriteLine(post);
-            }
-            Console.WriteLine();
-        }
+        //private void ViewBlogPost()
+        //{
+        //    List<Blog> blogs = _blogRepository.Get(Blog.Id);
+        //    foreach (Blog blog in blogs)
+        //    {
+        //        Console.WriteLine(blog);
+        //    }
+        //    Console.WriteLine();
+        //}
 
         private void AddTag()
         {
@@ -101,7 +99,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 int choice = int.Parse(input);
                 Tag tag = tags[choice - 1];
-                _blogRepository.InsertTag(blog, tag);
+                _blogRepository.InsertTag(blog.Id, tag.Id);
             }
             catch
             {
@@ -137,4 +135,5 @@ namespace TabloidCLI.UserInterfaceManagers
 
 
         }
+    }
 }

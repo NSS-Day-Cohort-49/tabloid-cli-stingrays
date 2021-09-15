@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TabloidCLI.Models;
 
 namespace TabloidCLI.UserInterfaceManagers
@@ -37,15 +36,14 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
                 case "2":
                     Blog blog = Choose();
-                    return this;
-                    //if (blog == null)
-                    //{
-                    //    return this;
-                    //}
-                    //else
-                    //{
-                    //    return new BlogDetailManager(this, _connectionString, blog.Id);
-                    //}
+                    if (blog == null)
+                    {
+                        return this;
+                    }
+                    else
+                    {
+                        return new BlogDetailManager(this, _connectionString, blog.Id);
+                    }
                 case "3":
                     Add();
                     return this;
