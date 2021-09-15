@@ -18,7 +18,7 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "@SELECT b.Id, b.Title, b.Url, t.Name FROM Blog b Left JOIN BlogTag bt ON b.Id = bt.BlogId JOIN Tag t ON bt.TagId = t.Id";
+                    cmd.CommandText = "@SELECT b.Id, b.Title, b.Url, b.Tags FROM Blog b Left JOIN BlogTag bt ON b.Id = bt.BlogId JOIN Tag t ON bt.TagId = t.Id";
 
                     List<Blog> blogs = new List<Blog>();
 
