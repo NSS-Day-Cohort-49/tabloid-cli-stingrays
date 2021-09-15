@@ -30,8 +30,8 @@ namespace TabloidCLI.Repositories
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        //int authorId = reader.GetInt32(reader.GetOrdinal("AuthorId"));
-                        //int blogId = reader.GetInt32(reader.GetOrdinal("BlogId"));
+                        int authorId = reader.GetInt32(reader.GetOrdinal("AuthorId"));
+                        int blogId = reader.GetInt32(reader.GetOrdinal("BlogId"));
                         Post post = new Post()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
@@ -41,15 +41,15 @@ namespace TabloidCLI.Repositories
                             Author = new Author()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("AuthorId")),
-                                //FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                //LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                //Bio = reader.GetString(reader.GetOrdinal("Bio")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Bio = reader.GetString(reader.GetOrdinal("Bio")),
                             },
                             Blog = new Blog()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("BlogId")),
-                                //Title = reader.GetString(reader.GetOrdinal("BlogTitle")),
-                                //Url = reader.GetString(reader.GetOrdinal("BlogUrl")),
+                                Title = reader.GetString(reader.GetOrdinal("BlogTitle")),
+                                Url = reader.GetString(reader.GetOrdinal("BlogUrl")),
                             }
 
 
