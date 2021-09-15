@@ -28,6 +28,8 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("Post Menu");
             Console.WriteLine(" 1) List Posts");
             Console.WriteLine(" 2) Add Post");
+            Console.WriteLine(" 3) Delete Post");
+            Console.WriteLine(" 0) Go Back");
            
 
             Console.Write("> ");
@@ -41,6 +43,12 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "2":
                     AddPost();
                     return this;
+
+                case "3":
+                    DeletePost();
+                    return this;
+                case "0":
+                    return _parentUI;
 
                 default:
                     Console.WriteLine("Invalid Selection");
@@ -94,6 +102,45 @@ namespace TabloidCLI.UserInterfaceManagers
             _postRepository.Insert(post);
 
             
+        }
+        private Post Choose(string prompt = null)
+        {
+            if( prompt == null)
+            {
+                prompt = "Please choose an Author:";
+            }
+
+            Console.WriteLine(prompt);
+
+            List<Post> posts = _postRepository.GetAll();
+
+            for (int i=0; i < posts.Count; i++)
+            {
+                Post post = posts[i];
+                Console.WriteLine($" {i + 1}) {post.Title}");
+            }
+            Console.Write("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                return posts[choice - 1];
+            }
+            catch
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
+            }
+        }
+
+        private void DeletePost()
+        {
+            Post postToDelete = Choose("Which post would you like to delete?");
+            if(postToDelete != null)
+            {
+                _postRepository.Delete(postToDelete.Id);
+            }
         }
 
 
