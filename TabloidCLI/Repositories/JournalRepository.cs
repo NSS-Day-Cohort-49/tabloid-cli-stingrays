@@ -27,13 +27,6 @@ namespace TabloidCLI
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        //int idColumnPosition = reader.GetOrdinal("Id");
-                        //int idValue = reader.GetInt32(idColumnPosition);
-                        //int titleColumnPosition = reader.GetOrdinal("Title");
-                        //string titleValue = reader.GetString(titleColumnPosition);
-                        //int dateColumnPosition = reader.GetOrdinal("CreateDateTime");
-                        //DateTime dateValue = reader.GetDateTime(dateColumnPosition);
-
                         Journal entry = new Journal()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
