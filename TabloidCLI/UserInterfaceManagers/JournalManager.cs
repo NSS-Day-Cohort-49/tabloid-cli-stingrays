@@ -96,9 +96,10 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine($"{i +1} {j.Title} ");
             }
             Console.Write("> ");
+            int position = int.Parse(Console.ReadLine());
             try
             {
-                return journals[int.Parse(Console.ReadLine()) - 1];
+                return journals[position - 1];
             }
             catch
             {

@@ -99,7 +99,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 int choice = int.Parse(input);
                 Tag tag = tags[choice - 1];
-                _blogRepository.InsertTag(blog.Id, tag.Id);
+                _blogRepository.InsertTag(blog, tag);
             }
             catch
             {
