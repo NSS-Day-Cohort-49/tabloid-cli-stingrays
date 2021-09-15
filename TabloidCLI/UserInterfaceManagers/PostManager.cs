@@ -59,8 +59,6 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public void AddPost()
         {
-            List<Author> authors = _authorRepository.GetAll();
-            List<Blog> blogs = _blogRepository.GetAll();
 
             Post post = new Post();
 
@@ -70,17 +68,30 @@ namespace TabloidCLI.UserInterfaceManagers
             post.Url = Console.ReadLine();
             post.PublishDateTime = new DateTime();
 
+            List<Author> authors = _authorRepository.GetAll();
             Console.WriteLine("Please select an Author for this post");
             foreach (Author a in authors)
             {
                 Console.WriteLine($"{a.Id} ) {a.FullName}");
             }
             Console.Write("> ");
-            int authorId = int.Parse(Console.ReadLine());
+        
 
-            post.Author = _authorRepository.Get(authorId);
+            post.Author = _authorRepository.Get(int.Parse(Console.ReadLine()));
+
+            Console.WriteLine("Please select a blog for this post");
+
+            List<Blog> blogs = _blogRepository.GetAll();
+            foreach (Blog b in blogs)
+            {
+                Console.WriteLine($"{b.Id} {b.Title}");
+            }
+            Console.WriteLine("> ");
 
 
+            post.Blog = _blogRepository.Get(int.Parse(Console.ReadLine()));
+
+            _postRepository.Insert(post);
 
             
         }
