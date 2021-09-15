@@ -74,7 +74,7 @@ namespace TabloidCLI.UserInterfaceManagers
             post.Title = Console.ReadLine();
             Console.WriteLine("Please enter the url of your post");
             post.Url = Console.ReadLine();
-            post.PublishDateTime = new DateTime();
+            post.PublishDateTime = DateTime.Now;
 
             List<Author> authors = _authorRepository.GetAll();
             Console.WriteLine("Please select an Author for this post");
