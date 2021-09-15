@@ -114,9 +114,10 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "@ UPDATE Blog SET Title = @title, Url = @url WHERE Id = @id";
+                    cmd.CommandText = @" UPDATE Blog SET Title = @title, Url = @url WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@title", blog.Title);
                     cmd.Parameters.AddWithValue("@url", blog.Url);
+                    cmd.Parameters.AddWithValue("@id", blog.Id);
 
                     cmd.ExecuteNonQuery();
                 }
