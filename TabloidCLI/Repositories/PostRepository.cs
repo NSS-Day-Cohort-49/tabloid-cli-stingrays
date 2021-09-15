@@ -17,7 +17,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT id,
+                    cmd.CommandText = @"SELECT Id,
                                                 Title,
                                                 Url,
                                                 PublishDateTime,
@@ -30,16 +30,36 @@ namespace TabloidCLI.Repositories
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
+                        //int authorId = reader.GetInt32(reader.GetOrdinal("AuthorId"));
+                        //int blogId = reader.GetInt32(reader.GetOrdinal("BlogId"));
                         Post post = new Post()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("Url")),
                             PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
+                            Author = new Author()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("AuthorId")),
+                                //FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                //LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                //Bio = reader.GetString(reader.GetOrdinal("Bio")),
+                            },
+                            Blog = new Blog()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("BlogId")),
+                                //Title = reader.GetString(reader.GetOrdinal("BlogTitle")),
+                                //Url = reader.GetString(reader.GetOrdinal("BlogUrl")),
+                            }
+
 
                         };
                         posts.Add(post);
                     }
+
+                    reader.Close();
+
+                    return posts;
                 }
             }
         }
