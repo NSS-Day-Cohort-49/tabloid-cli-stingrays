@@ -19,6 +19,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.Clear();
+
             Console.WriteLine("Journal Menu");
             Console.WriteLine(" 1) List Entries");
             Console.WriteLine(" 2) Add Entry");

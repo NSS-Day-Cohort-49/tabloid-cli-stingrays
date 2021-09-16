@@ -15,6 +15,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.Clear();
+
             Console.WriteLine("Select your background color");
             for (int i = 0; i < colors.Length; i++)
             {
@@ -116,12 +118,3 @@ namespace TabloidCLI.UserInterfaceManagers
         }
     }
 }
-
-
-//       The background color is DarkGray.
-//       The background color is Blue.
-//       The background color is Green.
-//       The background color is Cyan.
-//       The background color is Red.
-//       The background color is Magenta.
-//       The background color is Yellow.

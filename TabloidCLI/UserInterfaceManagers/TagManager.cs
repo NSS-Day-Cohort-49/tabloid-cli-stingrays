@@ -13,6 +13,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.Clear();
+
             Console.WriteLine("Tag Menu");
             Console.WriteLine(" 1) List Tags");
             Console.WriteLine(" 2) Add Tag");
