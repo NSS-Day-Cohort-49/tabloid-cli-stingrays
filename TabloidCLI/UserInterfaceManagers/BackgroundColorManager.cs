@@ -15,7 +15,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+                Console.Clear();
 
             Console.WriteLine("Select your background color");
             for (int i = 0; i < colors.Length; i++)
