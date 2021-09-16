@@ -16,6 +16,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.Clear();
+
             Console.WriteLine("Search Menu");
             Console.WriteLine(" 1) Search Blogs");
             Console.WriteLine(" 2) Search Authors");
