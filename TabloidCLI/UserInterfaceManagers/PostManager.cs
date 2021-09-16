@@ -13,6 +13,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private AuthorRepository _authorRepository;
         private BlogRepository _blogRepository;
         private string _connectionString;
+        public bool color { get; set; } = true;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
@@ -25,7 +26,10 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            //Console.Clear();
+            if (color)
+            {
+                Console.Clear();
+            }
 
             Console.WriteLine("Post Menu");
             Console.WriteLine(" 1) List Posts");
@@ -41,14 +45,17 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     List();
+                    color = false;
                     return this;
 
                 case "2":
                     AddPost();
+                    color = false;
                     return this;
 
                 case "3":
                     DeletePost();
+                    color = false;
                     return this;
                 case "4":
                     Edit();
@@ -58,6 +65,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
                 default:
                     Console.WriteLine("Invalid Selection");
+                    color = false;
                     return this;
             }
         }

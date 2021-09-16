@@ -13,6 +13,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private PostRepository _postRepository;
         private TagRepository _tagRepository;
         private int _blogId;
+        public bool color { get; set; } = true;
 
         public BlogDetailManager(IUserInterfaceManager parentUI, string connectionString, int blogId)
         {
@@ -25,7 +26,10 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            //Console.Clear();
+            if (color)
+            {
+                Console.Clear();
+            }
 
             Blog blog = _blogRepository.Get(_blogId);
             Console.WriteLine($"{blog.Title} Details");
@@ -41,20 +45,25 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     View();
+                    color = false;
                     return this;
                 case "2":
                     AddTag();
+                    color = false;
                     return this;
                 case "3":
                     RemoveTag();
+                    color = false;
                     return this;
                 case "4":
                     ViewBlogPost();
+                    color = false;
                     return this;
                 case "0":
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");
+                    color = false;
                     return this;
             }
         }
