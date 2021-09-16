@@ -46,17 +46,48 @@ namespace TabloidCLI
 
         public void Insert(Tag tag)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+                    {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Tag VALUES (@name)";
+                    cmd.Parameters.AddWithValue("@name", tag.Name);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Update(Tag tag)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Tag SET Name = @name   WHERE @id = Id";
+                    cmd.Parameters.AddWithValue("@name", tag.Name);
+                    cmd.Parameters.AddWithValue("@id", tag.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Tag WHERE Id = @id; DELETE FROM PostTag WHERE TagId = @id; DELETE FROM AuthorTag WHERE TagId = @id; DELETE FROM BlogTag WHERE TagId = @id;" ;
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public SearchResults<Author> SearchAuthors(string tagName)

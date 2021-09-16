@@ -25,6 +25,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.Clear();
+
             Console.WriteLine("Post Menu");
             Console.WriteLine(" 1) List Posts");
             Console.WriteLine(" 2) Add Post");
