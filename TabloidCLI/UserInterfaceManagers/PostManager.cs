@@ -30,7 +30,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 2) Add Post");
             Console.WriteLine(" 3) Delete Post");
             Console.WriteLine(" 0) Go Back");
-           
+
 
             Console.Write("> ");
             string choice = Console.ReadLine();
@@ -56,7 +56,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        public void List()
+        private void List()
         {
             List<Post> posts = _postRepository.GetAll();
             foreach (Post p in posts)
@@ -65,7 +65,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        public void AddPost()
+        private void AddPost()
         {
 
             Post post = new Post();
@@ -74,7 +74,8 @@ namespace TabloidCLI.UserInterfaceManagers
             post.Title = Console.ReadLine();
             Console.WriteLine("Please enter the url of your post");
             post.Url = Console.ReadLine();
-            post.PublishDateTime = DateTime.Now;
+            Console.WriteLine("Please enter the publish date/time in MM/DD/YYYY format");
+            post.PublishDateTime = DateTime.Parse(Console.ReadLine());
 
             List<Author> authors = _authorRepository.GetAll();
             Console.WriteLine("Please select an Author for this post");
@@ -83,7 +84,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine($"{a.Id} ) {a.FullName}");
             }
             Console.Write("> ");
-        
+
 
             post.Author = _authorRepository.Get(int.Parse(Console.ReadLine()));
 
@@ -101,11 +102,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
             _postRepository.Insert(post);
 
-            
+
         }
         private Post Choose(string prompt = null)
         {
-            if( prompt == null)
+            if (prompt == null)
             {
                 prompt = "Please choose an Author:";
             }
@@ -114,7 +115,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
             List<Post> posts = _postRepository.GetAll();
 
-            for (int i=0; i < posts.Count; i++)
+            for (int i = 0; i < posts.Count; i++)
             {
                 Post post = posts[i];
                 Console.WriteLine($" {i + 1}) {post.Title}");
@@ -134,10 +135,55 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        private void Edit()
+        {
+            Post postToEdit = Choose("Which post would you like to edit?");
+            if (postToEdit == null)
+            {
+                return;
+            }
+
+            Console.WriteLine();
+            Console.Write("New Title (blank to leave unchanged: ");
+            string title = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                postToEdit.Title = title;
+            }
+            Console.Write("New URL (blank to leave unchanged: ");
+            string url = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                postToEdit.Url = url;
+            }
+            Console.Write("New Publish Date/Time (blank to leave unchanged: ");
+            string dateTime = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(dateTime))
+            {
+                postToEdit.PublishDateTime = DateTime.Parse(dateTime);
+            }
+
+            List<Author> authors = _authorRepository.GetAll();
+            Console.WriteLine("Please select an Author for this post");
+            foreach (Author a in authors)
+            {
+                Console.WriteLine($"{a.Id} ) {a.FullName}");
+            }
+            Console.Write("> ");
+            string author = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(author))
+            {
+                int a = int.Parse(author);
+
+            }
+
+
+        }
+
         private void DeletePost()
         {
             Post postToDelete = Choose("Which post would you like to delete?");
-            if(postToDelete != null)
+            if (postToDelete != null)
             {
                 _postRepository.Delete(postToDelete.Id);
             }
