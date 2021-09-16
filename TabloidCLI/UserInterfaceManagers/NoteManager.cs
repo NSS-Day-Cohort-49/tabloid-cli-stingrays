@@ -74,6 +74,16 @@ namespace TabloidCLI.UserInterfaceManagers
 
             }
 
+        public void Add()
+        {
+
+        }
+
+        public void Remove()
+        {
+            
+        }
+
 
 
 
