@@ -29,6 +29,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 1) List Posts");
             Console.WriteLine(" 2) Add Post");
             Console.WriteLine(" 3) Delete Post");
+            Console.WriteLine(" 4) Edit Post");
             Console.WriteLine(" 0) Go Back");
 
 
@@ -46,6 +47,9 @@ namespace TabloidCLI.UserInterfaceManagers
 
                 case "3":
                     DeletePost();
+                    return this;
+                case "4":
+                    Edit();
                     return this;
                 case "0":
                     return _parentUI;
@@ -163,8 +167,8 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.PublishDateTime = DateTime.Parse(dateTime);
             }
 
+            Console.WriteLine("Please select an Author for this post (blank to leave unchanged: ");
             List<Author> authors = _authorRepository.GetAll();
-            Console.WriteLine("Please select an Author for this post");
             foreach (Author a in authors)
             {
                 Console.WriteLine($"{a.Id} ) {a.FullName}");
@@ -173,9 +177,23 @@ namespace TabloidCLI.UserInterfaceManagers
             string author = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(author))
             {
-                int a = int.Parse(author);
-
+                postToEdit.Author = authors[int.Parse(author) - 1];
             }
+
+            Console.WriteLine("Please select a Blog for this post (blank to leave unchanged: ");
+            List<Blog> blogs = _blogRepository.GetAll();
+            foreach (Blog b in blogs)
+            {
+                Console.WriteLine($"{b.Id} ) {b.Title}");
+            }
+            Console.Write("> ");
+            string blog = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(blog))
+            {
+                postToEdit.Blog = blogs[int.Parse(blog) -1];
+            }
+
+            _postRepository.Update(postToEdit);
 
 
         }
