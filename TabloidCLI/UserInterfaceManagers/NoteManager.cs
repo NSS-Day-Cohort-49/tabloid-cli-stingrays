@@ -45,11 +45,11 @@ namespace TabloidCLI.UserInterfaceManagers
                     color = false;
                     return this;
                 case "2":
-                    //Add();
+                    Add();
                     color = false;
                     return this;
                 case "3":
-                    //Remove();
+                    Remove();
                     color = false;
                     return this;
                 case "0":
@@ -76,12 +76,12 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public void Add()
         {
-
+            Console.WriteLine("Set this method up");
         }
 
         public void Remove()
         {
-            
+            Console.WriteLine("Set this method up");
         }
 
 
