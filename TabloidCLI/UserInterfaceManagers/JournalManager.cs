@@ -9,6 +9,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private readonly IUserInterfaceManager _parentUI;
         private JournalRepository _journalRepository;
         private string _connectionString;
+        public bool color { get; set; } = true;
 
         public JournalManager(IUserInterfaceManager parentUI, string connectionString)
         {
@@ -19,7 +20,10 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+            if (color)
+            {
+                Console.Clear();
+            }
 
             Console.WriteLine("Journal Menu");
             Console.WriteLine(" 1) List Entries");
@@ -34,20 +38,25 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     List();
+                    color = false;
                     return this;
                 case "2":
                     Add();
+                    color = false;
                     return this;
                 case "3":
                     Edit();
+                    color = false;
                     return this;
                 case "4":
                     Delete();
+                    color = false;
                     return this;
                 case "0":
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");
+                    color = false;
                     return this;
             }
         }
