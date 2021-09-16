@@ -19,7 +19,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+            bool color = true;
+            if (color)
+            {
+                Console.Clear();
+            }
 
             Console.WriteLine("Author Menu");
             Console.WriteLine(" 1) List Authors");
@@ -35,30 +39,37 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     List();
+                    color = false;
                     return this;
                 case "2":
                     Author author = Choose();
                     if (author == null)
                     {
+                        color = false;
                         return this;
                     }
                     else
                     {
+                        color = false;
                         return new AuthorDetailManager(this, _connectionString, author.Id);
                     }
                 case "3":
                     Add();
+                    color = false;
                     return this;
                 case "4":
                     Edit();
+                    color = false;
                     return this;
                 case "5":
                     Remove();
+                    color = false;
                     return this;
                 case "0":
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");
+                    color = false;
                     return this;
             }
         }

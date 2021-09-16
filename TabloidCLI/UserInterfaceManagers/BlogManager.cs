@@ -19,7 +19,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+            bool color = true;
+            if (color)
+            {
+                Console.Clear();
+            }
 
             Console.WriteLine("Blog Menu");
             Console.WriteLine(" 1) List Blogs");
@@ -35,30 +39,37 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     List();
+                    color = false;
                     return this;
                 case "2":
                     Blog blog = Choose();
                     if (blog == null)
                     {
+                        color = false;
                         return this;
                     }
                     else
                     {
+                        color = false;
                         return new BlogDetailManager(this, _connectionString, blog.Id);
                     }
                 case "3":
                     Add();
+                    color = false;
                     return this;
                 case "4":
                     Edit();
+                    color = false;
                     return this;
                 case "5":
                     Remove();
+                    color = false;
                     return this;
                 case "0":
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");
+                    color = false;
                     return this;
             }
 

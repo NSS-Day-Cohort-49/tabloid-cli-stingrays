@@ -24,8 +24,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
-
+            bool color = true;
+            if(color)
+            {
+                Console.Clear();
+            }
 
             Author author = _authorRepository.Get(_authorId);
             Console.WriteLine($"{author.FullName} Details");
@@ -41,20 +44,26 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     View();
+                    color = false;
                     return this;
                 case "2":
                     ViewBlogPosts();
+                    color = false;
                     return this;
                 case "3":
                     AddTag();
+                    color = false;
                     return this;
                 case "4":
                     RemoveTag();
+                    color = false;
                     return this;
                 case "0":
                     return _parentUI;
+                    color = false;
                 default:
                     Console.WriteLine("Invalid Selection");
+                    color = false;
                     return this;
             }
         }

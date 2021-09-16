@@ -16,7 +16,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+            bool color = true;
+            if (color)
+            {
+                Console.Clear();
+            }
 
             Console.WriteLine("Search Menu");
             Console.WriteLine(" 1) Search Blogs");
@@ -30,17 +34,22 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    color = false;
                     return this;
                 case "2":
                     SearchAuthors();
+                    color = false;
                     return this;
                 case "3":
+                    color = false;
                     return this;
                 case "4":
+                    color = false;
                     return this;
                 case "0":
                     return _parentUI;
                 default:
+                    color = false;
                     Console.WriteLine("Invalid Selection");
                     return this;
             }

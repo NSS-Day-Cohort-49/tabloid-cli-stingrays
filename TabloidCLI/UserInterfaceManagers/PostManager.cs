@@ -25,7 +25,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+            bool color = true;
+            if (color)
+            {
+                Console.Clear();
+            }
 
             Console.WriteLine("Post Menu");
             Console.WriteLine(" 1) List Posts");
@@ -40,20 +44,24 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     List();
+                    color = false;
                     return this;
 
                 case "2":
                     AddPost();
+                    color = false;
                     return this;
 
                 case "3":
                     DeletePost();
+                    color = false;
                     return this;
                 case "0":
                     return _parentUI;
 
                 default:
                     Console.WriteLine("Invalid Selection");
+                    color = false;
                     return this;
             }
         }
