@@ -24,7 +24,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+            //Console.Clear();
 
 
             Author author = _authorRepository.Get(_authorId);

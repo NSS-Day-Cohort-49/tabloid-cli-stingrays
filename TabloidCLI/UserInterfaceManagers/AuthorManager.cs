@@ -19,7 +19,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+            //Console.Clear();
 
             Console.WriteLine("Author Menu");
             Console.WriteLine(" 1) List Authors");
