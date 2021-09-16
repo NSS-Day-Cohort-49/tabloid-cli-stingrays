@@ -13,7 +13,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private NoteRepository _noteRepository;
 
 
-        public NoteManager(IUserInterfaceManager parentUI, string connectionString, int blogId)
+        public NoteManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _noteRepository = new NoteRepository(connectionString);
