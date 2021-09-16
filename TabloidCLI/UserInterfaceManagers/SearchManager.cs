@@ -34,28 +34,17 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
-<<<<<<< HEAD
-                    SearchBlogs();
-=======
                     color = false;
->>>>>>> main
                     return this;
                 case "2":
                     SearchAuthors();
                     color = false;
                     return this;
                 case "3":
-<<<<<<< HEAD
-                    SearchPosts();
-                    return this;
-                case "4":
-                    //SearchAll();
-=======
                     color = false;
                     return this;
                 case "4":
                     color = false;
->>>>>>> main
                     return this;
                 case "0":
                     return _parentUI;
