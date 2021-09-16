@@ -9,6 +9,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private readonly IUserInterfaceManager _parentUI;
         private AuthorRepository _authorRepository;
         private string _connectionString;
+        public bool color { get; set; } = true;
 
         public AuthorManager(IUserInterfaceManager parentUI, string connectionString)
         {
@@ -19,7 +20,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            bool color = true;
+
             if (color)
             {
                 Console.Clear();

@@ -8,17 +8,16 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private TagRepository _tagRepository;
+        public bool color { get; set; } = true;
 
         public TagManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _tagRepository = new TagRepository(connectionString);
-            
         }
 
         public IUserInterfaceManager Execute()
         {
-            bool color = true;
             if (color)
             {
                 Console.Clear();

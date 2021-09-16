@@ -7,6 +7,7 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private IUserInterfaceManager _parentUI;
         private TagRepository _tagRepository;
+        public bool color { get; set; } = true;
 
         public SearchManager(IUserInterfaceManager parentUI, string connectionString)
         {
@@ -16,7 +17,6 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            bool color = true;
             if (color)
             {
                 Console.Clear();

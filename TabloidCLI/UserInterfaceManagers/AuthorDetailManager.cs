@@ -12,6 +12,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private PostRepository _postRepository;
         private TagRepository _tagRepository;
         private int _authorId;
+        public bool color { get; set; } = true;
 
         public AuthorDetailManager(IUserInterfaceManager parentUI, string connectionString, int authorId)
         {
@@ -24,7 +25,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            bool color = true;
+
             if(color)
             {
                 Console.Clear();

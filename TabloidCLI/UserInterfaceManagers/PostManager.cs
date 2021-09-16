@@ -13,6 +13,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private AuthorRepository _authorRepository;
         private BlogRepository _blogRepository;
         private string _connectionString;
+        public bool color { get; set; } = true;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
@@ -25,7 +26,6 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            bool color = true;
             if (color)
             {
                 Console.Clear();
