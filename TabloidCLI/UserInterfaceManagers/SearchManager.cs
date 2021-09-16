@@ -34,6 +34,7 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    SearchBlogs();
                     color = false;
                     return this;
                 case "2":
@@ -41,6 +42,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     color = false;
                     return this;
                 case "3":
+                    SearchPosts();
                     color = false;
                     return this;
                 case "4":
