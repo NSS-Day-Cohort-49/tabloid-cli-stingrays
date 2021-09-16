@@ -11,6 +11,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private IUserInterfaceManager _parentUI;
         private NoteRepository _noteRepository;
+        private bool color { get; set; } = true;
 
 
         public NoteManager(IUserInterfaceManager parentUI, string connectionString)
@@ -22,7 +23,10 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+            if (color)
+            {
+                Console.Clear();
+            }
 
             Console.WriteLine("Note Manager Menu");
             Console.WriteLine("1 ) List Notes ");
@@ -38,16 +42,20 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     List();
+                    color = false;
                     return this;
                 case "2":
                     //Add();
+                    color = false;
                     return this;
                 case "3":
                     //Remove();
+                    color = false;
                     return this;
                 case "0":
                     return _parentUI;
                 default:
+                    color = false;
                     Console.WriteLine("Invaild Selection");
                     return this;
 
