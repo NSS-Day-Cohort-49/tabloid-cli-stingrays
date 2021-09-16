@@ -79,9 +79,11 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write(">  ");
             int chosenOne = int.Parse(Console.ReadLine());
 
+
             try
             {
-                return tags[chosenOne -1];
+                int arrayPosition = chosenOne - 1;
+                return tags[arrayPosition];
             }
             catch
             {
@@ -114,21 +116,21 @@ namespace TabloidCLI.UserInterfaceManagers
             Tag chosenOne = Choose("Which tag would you like to choose?");
 
             Console.WriteLine("New Name (Leave blank to keep the same) : ");
-            //string name = Console.ReadLine();
-            //if (!string.IsNullOrWhiteSpace(name)
-            //    {
-                
-            //}
+            string name = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(name))
+                {
+                chosenOne.Name = name;
+            }
+
+            _tagRepository.Update(chosenOne);
 
         }
 
         private void Remove()
         {
-            List();
-            Console.WriteLine("Please choose the Tag you would like to delete.");
-            int chosenOne = (int.Parse(Console.ReadLine()) -1);
+            Tag chosenOne = Choose("Which Tag would you like to delete?"); 
 
-            _tagRepository.Delete(chosenOne);
+            _tagRepository.Delete(chosenOne.Id);
         }
     }
 }
