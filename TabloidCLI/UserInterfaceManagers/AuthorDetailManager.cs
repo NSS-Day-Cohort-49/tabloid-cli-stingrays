@@ -60,9 +60,11 @@ namespace TabloidCLI.UserInterfaceManagers
                     color = false;
                     return this;
                 case "0":
-                    return _parentUI;
+                    //colorToggle = true;
                     color = false;
+                    return _parentUI;
                 default:
+                    //colorToggle = true;
                     Console.WriteLine("Invalid Selection");
                     color = false;
                     return this;
