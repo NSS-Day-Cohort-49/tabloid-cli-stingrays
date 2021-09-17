@@ -9,7 +9,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Console.Clear();
+            //Console.Clear();
 
             Console.WriteLine("Main Menu");
 

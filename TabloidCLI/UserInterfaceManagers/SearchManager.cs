@@ -34,6 +34,7 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    SearchBlogs();
                     color = false;
                     return this;
                 case "2":
@@ -41,6 +42,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     color = false;
                     return this;
                 case "3":
+                    SearchPosts();
                     color = false;
                     return this;
                 case "4":
@@ -55,6 +57,22 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        private void SearchBlogs()
+        {
+            Console.Write("Tag> ");
+            string tagName = Console.ReadLine();
+
+            SearchResults<Blog> results = _tagRepository.SearchBlogs(tagName);
+
+            if (results.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                results.Display();
+            }
+        }
         private void SearchAuthors()
         {
             Console.Write("Tag> ");
@@ -71,5 +89,39 @@ namespace TabloidCLI.UserInterfaceManagers
                 results.Display();
             }
         }
+
+        private void SearchPosts()
+        {
+            Console.Write("Tag> ");
+            string tagName = Console.ReadLine();
+
+            SearchResults<Post> results = _tagRepository.SearchPosts(tagName);
+
+            if (results.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                results.Display();
+            }
+        }
+
+        //private void SearchAll()
+        //{
+        //    Console.Write("Tag> ");
+        //    string tagName = Console.ReadLine();
+
+        //    SearchResults<All> results = _tagRepository.SearchAll(tagName);
+
+        //    if (results.NoResultsFound)
+        //    {
+        //        Console.WriteLine($"No results for {tagName}");
+        //    }
+        //    else
+        //    {
+        //        results.Display();
+        //    }
+        //}
     }
 }
